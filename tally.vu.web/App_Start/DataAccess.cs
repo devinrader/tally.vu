@@ -17,14 +17,14 @@ namespace tallyvu.Website.App_Start
 
         public static void InitializeDatabase()
         {
-            IDatabaseInitializer<DataContext> initializer;
+            //IDatabaseInitializer<DataContext> initializer;
 
-            if (IsAppHarbor)
-                initializer = new CreateDatabaseIfNotExists<DataContext>();// DontDropDbJustCreateTablesIfModelChanged<DataContext>();
-            else
-                initializer = new DropCreateDatabaseAlways<DataContext>();
+            //if (IsAppHarbor)
+            //    initializer = new CreateDatabaseIfNotExists<DataContext>();// DontDropDbJustCreateTablesIfModelChanged<DataContext>();
+            //else
+            //    initializer = new DropCreateDatabaseAlways<DataContext>();
 
-            Database.SetInitializer(new DataContext.Initializer(initializer));
+            //Database.SetInitializer(new DataContext.Initializer(initializer));
 
             using (var context = new DataContext())
             {
