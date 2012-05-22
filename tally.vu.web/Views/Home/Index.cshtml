@@ -1,0 +1,92 @@
+﻿<script type="text/javascript">
+    $(function () {
+
+        $("#Poll").validate({
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+
+        $("#addOption").click(function () {
+            $("#addOption").before('<input type="text" class="option" name="Options[' + $(".option").length + '].Answer" /></br>');
+
+            //if there are five options remove the button
+        });
+
+        $("#phoneNumber").wijcombobox({
+            minLength: 3,
+            showTrigger: false,
+            data: new wijdatasource({
+                proxy: new wijhttpproxy({
+                    url: 'Numbers/Index',
+                    data: {},
+                    dataType: 'json',
+                    type: 'POST'
+                }),
+                reader: new wijarrayreader([{
+                        name: 'label',
+                        mapping: 'FriendlyName'
+                    },
+                    {
+                        name: 'value',
+                        mapping: 'PhoneNumber'
+                    }
+                ])
+            }),
+            search: function (e, data) {
+                data.datasrc.proxy.options.data.query = data.term.value;
+            }
+        });
+    });
+</script>
+        
+<div class="row">
+    <div class="span6 left">
+        <img src="@Url.Content("~/Content/images/flow-chart-ppt-background.jpg")" />
+    </div>
+    <div class="span6 right">
+
+        <div>
+                    
+            <div class="hero-unit">
+                <h1>easily create real-time text polls</h1>
+            </div>
+
+            <form class="form-horizontal" action="/" name="Poll" id="Poll" method="post">
+
+                <fieldset class="control-group-error">
+                    <div class="control-group">
+                        <label class="control-label" for="Question">Question</label>                        
+                        <div class="controls"><input type="text" name="Title" class="required" /></div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="">Answers (max 5)</label>
+                        <div class="controls">
+                            <input type="text" class="option required" name="Options[0].Text" />
+                            <input type="hidden" name="Options[0].Shortcut" value="1" /><br />
+                            <input type="text" class="option required" name="Options[1].Text" />
+                            <input type="hidden" name="Options[1].Shortcut" value="2" /><br />
+                            <button type="button" id="addOption">Add</button>
+                        </div>                        
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="">Phone</label>
+                        <div class="controls">
+                            <input id="phoneNumber" name="PhoneNumber"  class="required" />
+                            <p class="help-block">Select a phone number to use for your poll</p>
+                        </div>
+                                
+                    </div>
+                        
+                    <div class="form-actions">                                
+                        <input class="btn" type="submit" value="Submit" />
+                    </div>                            
+                </fieldset>
+                        
+            </form>
+        </div>
+
+    </div>
+</div>

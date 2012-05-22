@@ -1,0 +1,12 @@
+﻿@model IQueryable<tallyvu.Models.Poll>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+
+@foreach (var poll in Model) { 
+    <div><a href="/@(poll.Key)">@(poll.Key)</a> :: @poll.PhoneNumber :: Vote Count: @((poll.Votes==null) ? "Null" : poll.Votes.Count.ToString())</div>
+}

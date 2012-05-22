@@ -1,0 +1,65 @@
+﻿@model tallyvu.Models.Poll
+
+<script id="scriptInit" type="text/javascript">   
+    $(document).ready(function () {
+        var votes = @(Html.Raw(Json.Encode(ViewBag.Votes)));
+        var poll = $.connection.pollHub;
+
+        poll.updateVotes = function (v) {
+            createBarChart(v);
+        }
+        
+        $.connection.hub.start( 
+            function() {
+                poll.join('@(Model.Key)'); 
+            } 
+        );
+
+        createBarChart(votes);
+    });
+
+    function createBarChart(data) {
+        $("#wijbarchart").wijbarchart({
+            dataSource: data,
+            axis: 
+            {
+                x: { 
+                    min: 0,
+                    autoMin: false
+                   },
+                y: { 
+                    min: 0,
+                    autoMin: false
+                   }
+            },
+            seriesList: [{
+                legendEntry: false,
+                label: "votes",
+                data: { x: { bind: "Option" }, y: { bind: "Count"} }
+            }]
+        });    
+    }
+</script>
+
+<div class="row">
+    <div class="span6">
+        <h1>@Model.Title</h1>
+        <div>
+        <div id="wijbarchart" class="ui-widget ui-widget-content ui-corner-all" style="width: 400px; height: 300px"> </div>
+        </div>
+        <div>@Model.PhoneNumber</div>
+        <div>
+        <ul id="votes"></ul>
+        </div>
+    </div>
+    <div class="span6">
+    Votes<br />
+    @if (Model.Votes != null)
+    { 
+        foreach (var vote in Model.Votes)
+        {
+            <div>@vote.From - @vote.Value</div>
+        }
+    }
+    </div>
+</div>
