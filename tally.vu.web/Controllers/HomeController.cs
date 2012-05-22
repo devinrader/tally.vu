@@ -29,8 +29,8 @@ namespace tallyvu.Controllers
         {
             var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
             var result = client.AddIncomingPhoneNumber(new PhoneNumberOptions() {
-                PhoneNumber = poll.PhoneNumber, 
-                SmsUrl = "http://verdict.io/Polls/Tally", 
+                PhoneNumber = poll.PhoneNumber,
+                SmsUrl = "http://tallyvu.apphb.com/Polls/Tally", 
                 SmsMethod = "POST" 
             });
 
