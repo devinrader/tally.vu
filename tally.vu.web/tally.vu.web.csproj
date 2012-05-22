@@ -139,12 +139,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotations\UniqueAttribute.cs" />
-    <Compile Include="App_Start\DataAccess.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NumbersController.cs" />
     <Compile Include="Controllers\PollsController.cs" />
-    <Compile Include="DataAccess\DataContext.Initializer.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\Repository.cs" />
     <Compile Include="Global.asax.cs">
