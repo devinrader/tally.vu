@@ -50,7 +50,7 @@ namespace tallyvu.Controllers
             if (poll == null)
                 throw new HttpException(404, "The requested Poll was not found");
 
-            var value = vm.Message.Trim().ToLower();
+            var value = vm.Body.Trim().ToLower();
 
             if (poll != null)
             {
