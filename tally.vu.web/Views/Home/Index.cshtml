@@ -56,14 +56,21 @@
                     }
                 ]),
                 loaded: function (e, data) {
-                    //enable the combo and stop the spinner
+                    //enable the combo, the button and stop the spinner
                     //$("#phoneNumber").wijcombobox("option", "disabled", false);
+                    $("#btncreate").removeAttr('disabled');
+                    $("#waitCursor").toggle();
+
+                    //$("#loadingNumbers").toggle();
                      //alert('loaded');
                 },
                 loading: function (e, data) {
-                    //disable the combo and start the spinner
+                    //disable the combo and button and start the spinner
                     //$("#phoneNumber").attr('disabled', 'disabled');
                     //$("#phoneNumber").wijcombobox("disable");
+                    $("#btncreate").attr('disabled', 'disabled');
+                    $("#waitCursor").toggle();
+                    //$("#loadingNumbers")
                 }
             }),
             search: function (e, data) {
@@ -99,14 +106,14 @@
                 <div class="control-group">
                     <label class="control-label" for="" style="font-weight: bold">find a phone number:</label>
                     <div class="controls">
-                        <input id="phoneNumber" name="PhoneNumber"  class="required phoneUS" />
+                        <span style="float: right; width:200px;display:none" id="waitCursor"><img src="@Url.Content("~/Content/images/wait16.gif")" alt="Your-Caption" /></span><input id="phoneNumber" name="PhoneNumber" class="required phoneUS" />
                         <p class="help-block" style="font-size: 9.5px">(enter an area code to find a number)</p>
                     </div>
                                 
                 </div>
                         
                 <div class="form-actions" style="text-align: center" >                                
-                    <input class="btn" type="submit" value="create your poll" />
+                    <input class="btn" type="submit" id="btncreate" value="create your poll" />
                 </div>                            
             </fieldset>
                         
