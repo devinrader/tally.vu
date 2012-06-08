@@ -20,6 +20,12 @@
 
         addOption(); addOption();
 
+        jQuery.validator.addMethod("phoneUS", function(phone_number, element) {
+                phone_number = phone_number.replace(/\s+/g, ""); 
+                return this.optional(element) || phone_number.length > 9 && phone_number.match(/^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
+            }, 
+            "Please specify a valid phone number");
+
         $("#Poll").validate({
             submitHandler: function (form) {
                 form.submit();
@@ -93,7 +99,7 @@
                 <div class="control-group">
                     <label class="control-label" for="" style="font-weight: bold">find a phone number:</label>
                     <div class="controls">
-                        <input id="phoneNumber" name="PhoneNumber"  class="required" />
+                        <input id="phoneNumber" name="PhoneNumber"  class="required phoneUS" />
                         <p class="help-block" style="font-size: 9.5px">(enter an area code to find a number)</p>
                     </div>
                                 
