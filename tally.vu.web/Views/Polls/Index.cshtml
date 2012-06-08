@@ -37,29 +37,67 @@
                 label: "votes",
                 data: { x: { bind: "Option" }, y: { bind: "Count"} }
             }]
-        });    
+        }); 
+        
+        if (data.length>0)
+        {
+            for(var i=0;i<data.length;i++)
+            {
+                if (i.Count>0) {
+                    $('#chartOverlayBg').hide();
+                    $('#chartOverlayTx').hide();
+                    break;
+                }
+            }
+        }   
     }
 </script>
 
-<div class="row">
-    <div class="span6">
-        <h1>@Model.Title</h1>
-        <div>
-        <div id="wijbarchart" class="ui-widget ui-widget-content ui-corner-all" style="width: 400px; height: 300px"> </div>
+    <div class="container">
+
+    <header class="jumbotron masthead">
+        <div class="inner">
+            <p>@Model.Title?</>
+            <p style="font-size:18px; font-weight: bold;">call @Model.PhoneNumber to tally your vote</>
         </div>
-        <div>@Model.PhoneNumber</div>
+    </header>
+    
+    <div class="row">
+        <div class="span6">
+            <div style="width: 400px; height: 300px; position: relative;">
+                <div id="wijbarchart" class="ui-widget ui-widget-content ui-corner-all" style=" position: absolute; width: 100%; height:100%; opacity:0.2" > </div>
+                @if (Model.Votes != null && Model.Votes.Count <= 0)
+                { 
+                <div id="chartOverlayBg" style="width:100%;height:100%;text-align:center;position:absolute;background-color:gray;opacity:0.4"></div>
+                <div id="chartOverlayTx" style="width:100%;height:100%;text-align:center;position:absolute;"><h2 style="line-height:12;">nothing tallied yet</h2></div>
+                }
+            </div>
+        </div>
         <div>
-        <ul id="votes"></ul>
+            <h3>tally options</h3>
+            @if (Model.Options != null)
+            { 
+                foreach (var option in Model.Options.OrderBy(o=>o.Shortcut))
+                {
+                    <div>(@option.Shortcut) - @option.Answer</div>
+                }
+            }
         </div>
     </div>
-    <div class="span6">
-    Votes<br />
-    @if (Model.Votes != null)
-    { 
-        foreach (var vote in Model.Votes)
-        {
-            <div>@vote.From - @vote.Value</div>
-        }
-    }
+
+    <div class="row">
+        <div class="span12">
+            <div style="margin-top:18px;">
+            <h4>Current Votes Tallied</h4>
+            @if (Model.Votes != null)
+            { 
+                foreach (var vote in Model.Votes)
+                {
+                    <div>@vote.From - @vote.Value</div>
+                }
+            }
+            </div>
+        </div>
     </div>
-</div>
+
+    </div>

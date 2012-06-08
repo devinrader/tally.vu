@@ -5,10 +5,10 @@
         var index = $(".option").length;
         var shortcut = $(".option").length + 1;
 
-        $("#addOption").before( '(' + shortcut + ') ' +
-                                '<input type="text" class="option" name="Options[' + index + '].Answer" />' +
+        $("#addOption").before( '<span>(' + shortcut + ') ' +
+                                '<input type="text" class="option" name="Options[' + index + '].Answer" style="width:90%;" />' +
                                 '<input type="hidden" name="Options[' + index + '].Shortcut" value="' + shortcut + '" />' +
-                                '</br>');
+                                '</span></br>');
 
         if (index >= 4) {
             $("#addOption").attr('disabled', 'disabled');
@@ -18,7 +18,7 @@
 
     $(function () {
 
-        addOption();addOption();
+        addOption(); addOption();
 
         $("#Poll").validate({
             submitHandler: function (form) {
@@ -48,7 +48,17 @@
                         name: 'value',
                         mapping: 'PhoneNumber'
                     }
-                ])
+                ]),
+                loaded: function (e, data) {
+                    //enable the combo and stop the spinner
+                    //$("#phoneNumber").wijcombobox("option", "disabled", false);
+                     //alert('loaded');
+                },
+                loading: function (e, data) {
+                    //disable the combo and start the spinner
+                    //$("#phoneNumber").attr('disabled', 'disabled');
+                    //$("#phoneNumber").wijcombobox("disable");
+                }
             }),
             search: function (e, data) {
                 data.datasrc.proxy.options.data.query = data.term.value;
@@ -56,36 +66,43 @@
         });
     });
 </script>
-        
-    <h1>Polling Made Easy</h1>
-                    
-    <form class="form-horizontal" action="/" name="Poll" id="Poll" method="post">
+    <div class="container" style="width:450px">
 
-        <fieldset class="control-group-error">
-            <div class="control-group">
-                <label class="control-label" for="Question">Question</label>                        
-                <div class="controls"><input type="text" name="Title" class="required" /></div>
+        <header class="jumbotron masthead">
+            <div class="inner">
+                <h1>tally.vu</h1>
+                <p>text polls made easy</p>
             </div>
+        </header>    
 
-            <div class="control-group">
-                <label class="control-label" for="">Answers (max 5)</label>
-                <div class="controls" id="options">
-                    <span><button type="button" id="addOption">Add</button><span id="enough" style="display:none">Thats probably enough for now</span></span>
-                </div>                        
-            </div>
+        <form action="/" name="Poll" id="Poll" method="post" style="padding: 10px;">
 
-            <div class="control-group">
-                <label class="control-label" for="">Phone</label>
-                <div class="controls">
-                    <input id="phoneNumber" name="PhoneNumber"  class="required" />
-                    <p class="help-block">Select a phone number to use for your poll</p>
+            <fieldset class="control-group-error">
+                <div class="control-group">
+                    <label class="control-label" for="Question" style="font-weight: bold">whats your question?</label>                        
+                    <div class="controls"><input type="text" name="Title" class="required" style="width:100%;" /></div>
                 </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="" style="font-weight: bold">tell us your answers:</label>
+                    <div class="controls" id="options" style="text-align:right;">
+                        <span><button tabindex="-1" type="button" id="addOption">add another</button><span id="enough" style="display:none;">Thats probably enough for now</span></span>
+                    </div>                        
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="" style="font-weight: bold">find a phone number:</label>
+                    <div class="controls">
+                        <input id="phoneNumber" name="PhoneNumber"  class="required" />
+                        <p class="help-block" style="font-size: 9.5px">(enter an area code to find a number)</p>
+                    </div>
                                 
-            </div>
+                </div>
                         
-            <div class="form-actions">                                
-                <input class="btn" type="submit" value="Submit" />
-            </div>                            
-        </fieldset>
+                <div class="form-actions" style="text-align: center" >                                
+                    <input class="btn" type="submit" value="create your poll" />
+                </div>                            
+            </fieldset>
                         
-    </form>
+        </form>
+    </div>

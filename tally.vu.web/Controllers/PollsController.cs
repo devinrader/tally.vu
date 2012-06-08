@@ -70,7 +70,7 @@ namespace tallyvu.Controllers
         {
             var results = from o in poll.Options
                           select new PollResultViewModel() {
-                            Option = o.Text,
+                            Option = o.Answer,
                             Count = (from v in poll.Votes where v.Value == o.Shortcut select v).Count()
                           };
             return results;
