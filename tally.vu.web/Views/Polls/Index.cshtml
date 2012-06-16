@@ -63,7 +63,7 @@
                 PhoneNumbers.PhoneNumberUtil phoneUtil = PhoneNumbers.PhoneNumberUtil.GetInstance();
                 PhoneNumbers.PhoneNumber number = phoneUtil.Parse(Model.PhoneNumber, "US");
             }
-            <p style="font-size:18px; font-weight: bold;">call @phoneUtil.Format(number, PhoneNumbers.PhoneNumberFormat.NATIONAL) to tally your vote</>
+            <p style="font-size:18px; font-weight: bold;">text @phoneUtil.Format(number, PhoneNumbers.PhoneNumberFormat.NATIONAL) to tally your vote</>
         </div>
     </header>
     
