@@ -69,6 +69,7 @@ namespace tallyvu.Controllers
         private IEnumerable<PollResultViewModel> CountVotes(Poll poll)
         {
             var results = from o in poll.Options
+                          orderby o.Shortcut descending
                           select new PollResultViewModel() {
                             Option = o.Answer,
                             Count = (from v in poll.Votes where v.Value == o.Shortcut select v).Count()
